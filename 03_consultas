@@ -1,0 +1,51 @@
+select 
+m.usuario_id,
+SUM(m.valor) as total_despesas
+from movimentacoes m 
+join categorias c 
+	on m.categoria_id = c.id 
+where c.tipo = 'DESPESA'
+group by m.usuario_id;
+
+
+--Quanto cada usuario gastou por categoria
+
+select
+m.usuario_id,
+c.nome,
+SUM(m.valor)
+from movimentacoes m   
+join categorias c 
+	on m.categoria_id = c.id
+group by m.usuario_id ,c.nome ;
+
+--Quanto foi gasto por categoria
+select
+c.nome,
+SUM(m.valor)
+from movimentacoes m
+join categorias c  
+	on m.categoria_id = c.id 
+group by c.nome ;
+
+-- QUAL FOI O MAIOR GASTO TOTAL
+select 
+u.nome,
+SUM(m.valor) as total_gasto
+from movimentacoes m 
+join usuarios u 
+	on m.usuario_id  = u.id 
+group by u.id, u.nome  
+order by total_gasto DESC;
+
+-- MOSTRANDO SÓ VALORES ACIMA DO PEDIDO
+select
+u.nome,
+SUM(m.valor) as total_gasto 
+from movimentacoes m
+join usuarios u
+	on m.usuario_id = u.id 
+group by u.id, u.nome 
+HAVING SUM(m.valor) > 1000
+order by total_gasto Desc
+
