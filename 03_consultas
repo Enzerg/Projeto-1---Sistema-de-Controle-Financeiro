@@ -78,4 +78,6 @@ select *
 from vw_receita
 where valor > 1000;
 
+select * 
+from vw_saldo_usuario
 
