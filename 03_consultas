@@ -8,7 +8,7 @@ where c.tipo = 'DESPESA'
 group by m.usuario_id;
 
 
---Quanto cada usuario gastou por categoria
+--Quanto cada usuario gastou por categoria (esqueleto) 
 
 select
 m.usuario_id,
@@ -19,7 +19,7 @@ join categorias c
 	on m.categoria_id = c.id
 group by m.usuario_id ,c.nome ;
 
---Quanto foi gasto por categoria
+--Quanto foi gasto por categoria (esqueleto)
 select
 c.nome,
 SUM(m.valor)
@@ -28,7 +28,7 @@ join categorias c
 	on m.categoria_id = c.id 
 group by c.nome ;
 
--- QUAL FOI O MAIOR GASTO TOTAL
+-- QUAL FOI O MAIOR GASTO TOTAL (esqueleto)
 select 
 u.nome,
 SUM(m.valor) as total_gasto
@@ -38,7 +38,7 @@ join usuarios u
 group by u.id, u.nome  
 order by total_gasto DESC;
 
--- MOSTRANDO SÓ VALORES ACIMA DO PEDIDO
+-- MOSTRANDO SÓ VALORES ACIMA DO PEDIDO (esqueleto)
 select
 u.nome,
 SUM(m.valor) as total_gasto 
@@ -47,9 +47,9 @@ join usuarios u
 	on m.usuario_id = u.id 
 group by u.id, u.nome 
 HAVING SUM(m.valor) > 1000
-order by total_gasto Desc
+order by total_gasto Desc;
 
--- LISTAR AS 5 MAIORES DESPESAS
+-- LISTAR AS 5 MAIORES DESPESAS (esqueleto)
 
 select 
 c.nome,
@@ -64,7 +64,7 @@ order by valor_despesa Desc
 limit 5;
 
 
--- CONSULTA USANDO AS VIEWS
+-- CONSULTA USANDO AS VIEWS (esqueleto)
 
 select * 
 from vw_movimentacoes 
@@ -79,5 +79,4 @@ from vw_receita
 where valor > 1000;
 
 select * 
-from vw_saldo_usuario
-
+from vw_saldo_usuario;
